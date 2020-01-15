@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block container %}
+
+<div class="container">
+
+    <div class="mt-4 mb-3"><a href="/" class="btn-outline-secondary">Назад</a></div>
+    <h2 class="р2 mb-3"><strong>Поиск: {{ search_results|length }} видео</strong></h2>
+
+    <form>
+        <div class="form-row">
+            <div class="col-7">
+                <input name="q" type="text" class="form-control" placeholder="Что ищем?">
+            </div>
+
+            <div class="col">
+                <button class="btn btn-primary" href="/{{ search_word }}">Найти</button>
+            </div>
+        </div>
+    </form>
+    <p>Например:
+        {% for tag in tags %}
+
+        <a href="/search?q={{ tag }}" class="mx-2">{{ tag }}</a>
+
+        {% endfor %}</p>
+
+  <div class="row mt-3">
+
+      {% for video_id, video in search_results.items() %}
+
+      <div class="col-4 mt-4">
+          <div class="card" style="width: 18rem;">
+              <img src="https://img.youtube.com/vi/{{ video.url }}/hqdefault.jpg" class="card-img-top fluid">
+              <div class="card-body">
+                  <h5 class="card-title"><strong>{{ video.title }}</strong></h5>
+                  <a href="/playlist/{{ video.playlist }}/{{ video_id }}" class="btn btn-primary btn-sm mt-3">Открыть</a>
+              </div>
+          </div>
+      </div>
+
+      {% endfor %}
+
+  </div>
+
+</div>
+
+{% endblock %}
